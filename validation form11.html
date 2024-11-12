@@ -1,0 +1,71 @@
+<form id="myform">
+    <h1>Signup</h1> <br>
+    <input type="text" placeholder="Name" id="name" required><br> <br>
+    <input type="email" placeholder="Email" id="email" required><br> <br>
+    <input type="number" placeholder="Mobile Number" id="number" required><br> <br>
+    <input type="password" placeholder="Create Password" id="password" required><br> <br>
+    <input type="password" placeholder="Confirm Password" id="cpassword" required><br> <br>
+
+    <button type="submit">Submit</button>
+
+    <p id="err" style="color: red;"></p>
+
+</form>
+
+<script>
+    let myform = document.getElementById("myform");
+    let err = document.getElementById("err")
+
+    myform.addEventListener('submit', (e) => {
+        e.preventDefault()
+        let userInfo = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            number: document.getElementById("number").value,
+            cpassword: document.getElementById("cpassword").value
+        }
+
+        validate(userInfo)
+    })
+
+    function validate(val) {
+
+        // name  Regex code : /^[A-Za-z]{2,}$/
+
+        if(val.name == ""){
+             err.textContent = "No name found"
+        }
+
+        if (!/^[A-Za-z]{2,}$/.test(val.name)) {
+            err.textContent = "Please input right name"
+        }
+
+        //mobile /^\d{10}$/
+
+
+
+        if (!/^\d{10}$/.test(val.number)) {
+            err.textContent = "Mobile number is wrong"
+        }
+
+        //password regex /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/
+
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/.test(val.password)) {
+            err.textContent = "Please use Strong password"
+        }
+
+        //Email /^\S+@\S+\.\S+$/
+
+        if (!/^\S+@\S+\.\S+$/.test(val.email)) {
+            err.textContent = "Please use Correct email"
+        }
+
+        if (val.password !== val.cpassword) {
+            err.textContent = "Password not match"
+        }
+
+
+
+    }
+</script>
